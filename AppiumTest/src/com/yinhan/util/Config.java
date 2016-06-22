@@ -20,6 +20,20 @@ public class Config {
 	public static final String EQUALSIGN="=";
 	public static final String CHANGELINE="\n";
 	
+	
+	public static final String ACTIONDESCCHINESE_1="点击坐标";
+	public static final String ACTIONDESCCHINESE_2="休息";
+	public static final String ACTIONDESCCHINESE_3="点击button";
+	public static final String ACTIONDESCCHINESE_4="点击textview";
+	public static final String ACTIONDESCCHINESE_5="点击imageview";
+	public static final String ACTIONDESCCHINESE_6="edittext输入";
+	public static final String ACTIONDESCCHINESE_7="返回";
+	public static final String ACTIONDESCCHINESE_8="键盘输入";
+	public static final String ACTIONDESCCHINESE_9="滑动";
+	public static final String SURFACETESTCASEPATH="D:\\myeclipse_workspace\\AppiumTest\\";
+	
+	
+	
 	public static HashMap<String,Integer> KEYCODEMAP=new HashMap<String,Integer>();
 	
 	
