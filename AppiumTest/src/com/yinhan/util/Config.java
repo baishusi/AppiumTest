@@ -1,6 +1,8 @@
 package com.yinhan.util;
 
 import java.util.HashMap;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 public class Config {
 
@@ -9,6 +11,8 @@ public class Config {
 	public static final String ALLCONFIG="config/config.txt";
 	public static final String TEMPPICPATH="config/temp.jpg";
 	public static final String PICPATHPRE="config/rightpicture/";
+	public static final String SURFACECONFIGFILE="config/surconfig.txt";
+	public static final String ALLTESTCAEFILEPATHPRE="config/testcasefile/";
 	
 	public static final int STANDARDX=1920;
 	public static final int STANDARDY=1080;
@@ -30,8 +34,8 @@ public class Config {
 	public static final String ACTIONDESCCHINESE_7="返回";
 	public static final String ACTIONDESCCHINESE_8="键盘输入";
 	public static final String ACTIONDESCCHINESE_9="滑动";
-	public static final String SURFACETESTCASEPATH="D:\\myeclipse_workspace\\AppiumTest\\";
-	
+//	public static final String SURFACETESTCASEPATH="D:\\myeclipse_workspace\\AppiumTest\\";
+	public static final String SURFACETESTCASEPATH="";
 	
 	
 	public static HashMap<String,Integer> KEYCODEMAP=new HashMap<String,Integer>();
@@ -55,6 +59,9 @@ public class Config {
 	public static int RUNNINGX;
 	public static int RUNNINGY;
 	public static String APKRESULTPATH;
+	
+	public static Logger log=Logger.getLogger("surface");
+	public static Logger runlog=Logger.getLogger("running");
 	
 	
 	public static void initKeyCodeMap()
@@ -95,7 +102,11 @@ public class Config {
 		KEYCODEMAP.put("x",52);
 		KEYCODEMAP.put("y",53);
 		KEYCODEMAP.put("z",54);
-		
+	}
+	
+	public static void setLevel()
+	{
+		runlog.setLevel(Level.INFO);
 	}
 	
 }

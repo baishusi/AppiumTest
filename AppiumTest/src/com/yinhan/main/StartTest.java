@@ -4,6 +4,7 @@ import io.appium.java_client.android.AndroidDriver;
 
 import java.net.URL;
 import java.util.ArrayList;
+import java.util.logging.Level;
 
 import org.openqa.selenium.remote.DesiredCapabilities;
 
@@ -20,8 +21,9 @@ public class StartTest {
 
 	@SuppressWarnings("rawtypes")
 	public static void main(String[] args) throws Exception {
-		
+		Config.setLevel();
 		//解析文件获得要测试的apk信息，包名和路径
+		Config.runlog.info("get apkconfig include packagename and apkpath");
 		ArrayList<String[]> apkconfigList = HelpUtil.ReadFileManager(
 				Config.APKCONFIGFILE, Config.TABSIGN);
 		Config.initKeyCodeMap();
@@ -43,10 +45,12 @@ public class StartTest {
 		
 		AndroidDriver driver = null;
 		DesiredCapabilities capabilities = new DesiredCapabilities();
+		Config.runlog.info("total running apk size is " +apkconfigList.size());
 		for(int i=0;i<apkconfigList.size();i++)
 		{
+			Config.runlog.info("begin install apk "+apkconfigList.get(i)[0]);
 			//安装apk
-//			HelpUtil.RunCommand("adb install "+apkconfigList.get(i)[0]);
+			HelpUtil.RunCommand("adb install "+apkconfigList.get(i)[0]);
 			
 			//设置机器
 			capabilities.setCapability("platformName", "Android");
@@ -60,7 +64,7 @@ public class StartTest {
 			capabilities.setCapability("resetKeyboard", true);
 			
 			driver= new AndroidDriver(new URL("http://127.0.0.1:4723/wd/hub"), capabilities);
-			
+			Config.runlog.info("begin run testcase");
 			//开始跑测试用例
 			HandleTestCaseInterface handleYhTestCase = new HandleTestCase();
 			((HandleTestCase) handleYhTestCase).setDriver(driver);
@@ -69,10 +73,11 @@ public class StartTest {
 			
 			//跑完了结束掉机器
 			driver.quit();
-			
+			Config.runlog.info("begin uninstall apk");
 			//卸载程序
-//			HelpUtil.RunCommand("adb uninstall "+apkconfigList.get(i)[1]);
+			HelpUtil.RunCommand("adb uninstall "+apkconfigList.get(i)[1]);
 			
+			Config.runlog.info("export report");
 			//导出报告
 			HelpUtil.ExportReport(Config.APKRESULTPATH+HelpUtil.GetFileName(apkconfigList.get(i)[0]));
 			
@@ -81,31 +86,6 @@ public class StartTest {
 	}
 
 	
-	
-	
-//	 ArrayList<String[]>
-//	 apkconfigtempList=HelpUtil.ReadFileManager(Config.APKCONFIGFILE, "");
-//	 apkconfigtempList.remove(0);
-//	 if(apkconfigtempList.size() == 0)
-//	 {
-//	 HelpUtil.WriteFileManager(Config.APKCONFIGFILE, "",false);
-//	 }else
-//	 {
-//	 for(int i =0;i<apkconfigtempList.size();i++)
-//	 {
-//	 if(i==0)
-//	 {
-//	 HelpUtil.WriteFileManager(Config.APKCONFIGFILE,
-//	 apkconfigtempList.get(i)[0],false);
-//	 }
-//	 else
-//	 {
-//	 HelpUtil.WriteFileManager(Config.APKCONFIGFILE,
-//	 apkconfigtempList.get(i)[0],true);
-//	 }
-//	
-//	 }
-//	 }
-	
+
 	
 }

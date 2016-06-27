@@ -2,6 +2,8 @@ package com.yinhan.util;
 
 import java.awt.Color;
 import java.awt.image.BufferedImage;
+import java.io.BufferedInputStream;
+import java.io.BufferedOutputStream;
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.File;
@@ -12,8 +14,6 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
 import java.util.ArrayList;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
 import javax.imageio.ImageIO;
 
@@ -85,6 +85,10 @@ public class HelpUtil {
 		String[] arrs = null;
 		ArrayList<String[]> seperatorResultList = new ArrayList<String[]>();
 		while ((line = br.readLine()) != null) {
+			if("".equals(line))
+			{
+				break;
+			}
 			if ("".equals(seperator)) {
 				arrs = new String[1];
 				arrs[0] = line;
@@ -111,6 +115,7 @@ public class HelpUtil {
 		FileOutputStream fos = new FileOutputStream(file, isAppendWriter);
 		OutputStreamWriter osw = new OutputStreamWriter(fos, "UTF-8");
 		BufferedWriter bw = new BufferedWriter(osw);
+		
 		bw.write(writeInString +Config.CHANGELINE);
 		// 注意关闭的先后顺序，先打开的后关闭，后打开的先关闭
 		bw.close();
@@ -129,7 +134,7 @@ public class HelpUtil {
 			isReader = new InputStreamReader(is, "utf-8");
 			br2 = new BufferedReader(isReader);
 			while ((line = br2.readLine()) != null) {
-				System.out.println("command :"+line);
+				System.out.println("command1 :"+line);
 				return line;
 			}
 		} catch (IOException e) {
@@ -159,7 +164,7 @@ public class HelpUtil {
 				}
 			}
 		}
-		System.out.println("command :"+line);
+		System.out.println("command2 :"+line);
 		return line;
 	}
 
@@ -209,6 +214,15 @@ public class HelpUtil {
 		}
 	}
 
+	public static void RemoveAndMakeFile(String path) throws IOException {
+		File file = new File(path);
+		if (!file.exists() && !file.isDirectory()) {
+			file.createNewFile();
+		} else {
+			deleteFile(file);
+			file.createNewFile();
+		}
+	}
 	public static String GetFileName(String path) {
 
 		File tempFile = new File(path.trim());
@@ -245,6 +259,38 @@ public class HelpUtil {
             result += (1-((float)abs/(max==0?1:max)));
         }
         return (result/256)*100;
+    }
+    
+
+    // 复制文件
+    public static void copyFile(String srcPath, String targetPath) throws IOException {
+    	
+    	File sourceFile=new File(srcPath);
+    	File targetFile = new File(targetPath);
+        BufferedInputStream inBuff = null;
+        BufferedOutputStream outBuff = null;
+        try {
+            // 新建文件输入流并对它进行缓冲
+            inBuff = new BufferedInputStream(new FileInputStream(sourceFile));
+
+            // 新建文件输出流并对它进行缓冲
+            outBuff = new BufferedOutputStream(new FileOutputStream(targetFile));
+
+            // 缓冲数组
+            byte[] b = new byte[1024 * 5];
+            int len;
+            while ((len = inBuff.read(b)) != -1) {
+                outBuff.write(b, 0, len);
+            }
+            // 刷新此缓冲的输出流
+            outBuff.flush();
+        } finally {
+            // 关闭流
+            if (inBuff != null)
+                inBuff.close();
+            if (outBuff != null)
+                outBuff.close();
+        }
     }
     
 }

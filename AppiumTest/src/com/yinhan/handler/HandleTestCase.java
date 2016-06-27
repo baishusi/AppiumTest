@@ -48,7 +48,6 @@ public class HandleTestCase implements HandleTestCaseInterface {
 	@Override
 	public void excuteAction(String[] actions) {
 		int actionNum = Integer.parseInt(actions[0]);
-		System.out.println("actionNum " + actionNum);
 		String[] argumentArr = null;
 		
 		if(actions.length>1)
@@ -198,20 +197,24 @@ public class HandleTestCase implements HandleTestCaseInterface {
 		boolean isAppendWrite = false;
 		try {
 			for (int i = 0; i < testCaseList.size(); i++) {
+				Config.runlog.info("running the " + i+" testcase");
 				if (i > 0) {
 					isAppendWrite = true;
 				}
 				// 跑测试用例
 				for (int j = 0; j < testCaseList.get(i).getAcitons().length; j++) {
+					Config.runlog.info("running the "+ j +" action");
 					excuteAction(testCaseList.get(i).getAcitons()[j]
 							.split(Config.COLON));
 				}
-
+				
+				Config.runlog.info("begin catch picture");
 				// 截图
 				onePicPath = resultPicPath + "\\" + testCaseList.get(i).getId()
 						+ ".jpg";
 				HelpUtil.SnapShot((TakesScreenshot) driver, onePicPath);
-
+				
+				Config.runlog.info("get the result");
 				// 获得结果
 				if (getTestResult(testCaseList.get(i).getTestResult())) {
 					resultString = "success";
@@ -219,6 +222,7 @@ public class HandleTestCase implements HandleTestCaseInterface {
 					resultString = "failed";
 				}
 
+				Config.runlog.info("write the result");
 				// 写入结果
 				HelpUtil.WriteFileManager(resultTxtPath, testCaseList.get(i)
 						.getId()

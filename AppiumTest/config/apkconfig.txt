@@ -1,1 +1,1 @@
-E:\apptium\appiumpython\xyjhtest\apk\795.apk	com.yinhan.xyjh
+E:\\apptium\\appiumpython\\xyjhtest\\apk\860.apk	com.yinhan.xyjh

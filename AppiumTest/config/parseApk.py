@@ -17,7 +17,16 @@ def getpackagename(apkpath):
 	return root.getAttribute("package")
 
 if __name__=='__main__': 
-	androidapkpath=u'E:\\apptium\\appiumpython\\xyjhtest\\apk'
+	data=open("config.txt")
+	for each_line in data:
+		each_line = re.sub('\n','',each_line)
+		left=each_line.split("=")[0]
+		right=each_line.split("=")[1]
+		if left == 'androidApkPath':
+			androidapkpath=right
+			break
+	data.close()
+	# androidapkpath=u'E:\\apptium\\appiumpython\\xyjhtest\\apk'
 	for root,dirs,files in os.walk(androidapkpath):
 		for filename in files:
 			if filename.endswith('.apk'):

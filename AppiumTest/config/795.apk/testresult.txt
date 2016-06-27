@@ -1,8 +1,0 @@
-1	检查初始化状态	success
-2	点击返回，再点击屏幕	success
-3	账号注册	failed
-4	账号登录	success
-5	新建角色	success
-6	新手指引	success
-7	支付宝界面拉取	success
-8	微信支付	failed

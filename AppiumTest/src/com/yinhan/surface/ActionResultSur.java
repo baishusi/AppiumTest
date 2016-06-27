@@ -609,6 +609,7 @@ public class ActionResultSur extends javax.swing.JFrame {
 	}// </editor-fold>
 
 	private void showActionArea() {
+		Config.log.info("show action area");
 		String actionString = "";
 		if (testcaseBean.getAcitons() == null) {
 			actionDescArea.setText(actionString);
@@ -714,11 +715,11 @@ public class ActionResultSur extends javax.swing.JFrame {
 
 		}
 
-		// System.out.println(actionString);
 		actionDescArea.setText(actionString);
 	}
 
 	private void showResultArea() {
+		Config.log.info("show result area");
 		String resultString = "";
 		if (testcaseBean.getTestResult() == null) {
 			resultArea.setText(resultString);
@@ -905,6 +906,7 @@ public class ActionResultSur extends javax.swing.JFrame {
 	}
 
 	private String[] handleActionStringToArr() {
+		Config.log.info("make actionstring to array");
 		String[] actionArr = null;
 		actionArr = actionDescArea.getText().split("\n");
 		String acbeginString = "";
@@ -969,6 +971,8 @@ public class ActionResultSur extends javax.swing.JFrame {
 	}
 
 	private String[] handleResultStringToArr() {
+		
+		Config.log.info("make result string to array");
 		String[] resultArr = new String[2];
 
 		// 整理结果
@@ -1010,7 +1014,7 @@ public class ActionResultSur extends javax.swing.JFrame {
 	}
 
 	private void saveAndExit() {
-
+		Config.log.info("save and exit");
 		// 传递实体
 		testcaseBean.setAcitons(handleActionStringToArr());
 		testcaseBean.setTestResult(handleResultStringToArr());

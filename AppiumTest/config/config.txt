@@ -1,3 +1,4 @@
 runningX=1920
 runningY=1080
 apkResultPath=D:\myeclipse_workspace\AppiumTest\config\
+androidApkPath=E:\\apptium\\appiumpython\\xyjhtest\\apk
